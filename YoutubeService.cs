@@ -33,7 +33,7 @@ public sealed class YoutubeDownloader
     /// </summary>
     /// <param name="containers">The prefered containers.</param>
     /// <returns>The prefered or best quality <see cref="IStreamInfo"/>.</returns>
-    public async ValueTask<IStreamInfo> GetPreferredAudioOrHighestBitrate(params Container[] containers)
+    private async ValueTask<IStreamInfo> GetPreferredAudioOrHighestBitrate(params Container[] containers)
     {
         var manifest = await GetManifest();
 
