@@ -10,10 +10,16 @@ namespace Youtube2File;
 /// </summary>
 public sealed class YoutubeDownloader
 {
+    [Flags]
+    public enum DownloadType
+    {
+        Audio = 1,
+        Video = 2,
+        Caption = 4
+    }
     /// <summary>
     /// The folder where the data will be saved at.
     /// </summary>
-    private readonly YoutubeClient _client;
 
     private Video? _video;
     private StreamManifest? _streamManifest;
