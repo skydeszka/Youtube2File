@@ -57,14 +57,8 @@ public sealed class YoutubeDownloader
 
     }
 
-    /// <summary>
-    /// Retrieves the <see cref="StreamManifest"/> from Youtube and caches it.
-    /// </summary>
-    /// <returns>The retrieved <see cref="StreamManifest"/>.</returns>
-    private async ValueTask<StreamManifest> GetManifest()
+    private async ValueTask DownloadVideo()
     {
-        _streamManifest ??= await _client.Videos.Streams.GetManifestAsync(Id);
 
-        return _streamManifest;
     }
 }
