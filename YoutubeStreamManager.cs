@@ -50,24 +50,15 @@ internal sealed class YoutubeStreamManager
     /// <summary>
     /// Gets the <see cref="AudioOnlyStreamInfo"/> of the first matching <see cref="Container"/> at the best quality.
     /// </summary>
-    /// <param name="containers">The prefered containers.</param>
-    /// <returns>The first matching <see cref="AudioOnlyStreamInfo"/> with the best quality.</returns>
-    private AudioOnlyStreamInfo GetPreferredAudioOrHighestBitrate(params Container[] containers)
+    /// <param name="container">The prefered container.</param>
+    /// <returns>The <see cref="AudioOnlyStreamInfo"/> matching the <see cref="Container"/> or with the best bitrate.</returns>
+    public AudioOnlyStreamInfo GetAudioStreamByPreferenceOrHighestBitrate(Container container)
     {
         var audioOnlyStreams = _streamManifest.GetAudioOnlyStreams();
 
-        AudioOnlyStreamInfo? stream = null;
-
-        foreach (Container container in containers)
-        {
-            var matches = audioOnlyStreams
-                .Where(stream => stream.Container == container);
-
-            if (!matches.Any())
-                continue;
-
-            stream = (AudioOnlyStreamInfo)matches.GetWithHighestBitrate();
-        }
+        AudioOnlyStreamInfo? stream = (AudioOnlyStreamInfo?) audioOnlyStreams
+            .Where(stream => stream.Container == container)
+            .TryGetWithHighestBitrate();
 
         stream ??= (AudioOnlyStreamInfo)audioOnlyStreams.GetWithHighestBitrate();
 
