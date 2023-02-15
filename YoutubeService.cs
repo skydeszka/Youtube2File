@@ -17,6 +17,12 @@ public sealed class YoutubeDownloader
         Video = 2,
         Caption = 4
     }
+
+    public struct DownloadOptions
+    {
+        public required DownloadType Type { get; init; }
+        public required Container PreferedContainer { get; init; }
+    }
     /// <summary>
     /// The folder where the data will be saved at.
     /// </summary>
