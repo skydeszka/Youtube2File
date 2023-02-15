@@ -25,7 +25,7 @@ internal sealed class YoutubeStreamManager
     /// <param name="client">The client to use.</param>
     /// <param name="id">The ID of the video.</param>
     /// <returns>The stream manager of the video.</returns>
-    public static async ValueTask Create(YoutubeClient client, VideoId id)
+    public static async Task<YoutubeStreamManager> Create(YoutubeClient client, VideoId id)
     {
         YoutubeStreamManager manager = new(client, id);
 
@@ -33,6 +33,8 @@ internal sealed class YoutubeStreamManager
             .Videos
             .Streams
             .GetManifestAsync(manager._id);
+
+        return manager;
     }
 
     /// <summary>
