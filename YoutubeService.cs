@@ -11,11 +11,7 @@ namespace Youtube2File;
 public sealed class YoutubeDownloader
 {
     /// <summary>
-    /// The <see cref="VideoId"/> of the Youtube video.
-    /// </summary>
-    public required VideoId Id { get; init; }
-    /// <summary>
-    /// The Youtube client.
+    /// The folder where the data will be saved at.
     /// </summary>
     private readonly YoutubeClient _client;
 
@@ -57,15 +53,8 @@ public sealed class YoutubeDownloader
         return stream;
     }
 
-    /// <summary>
-    /// Retrieves the <see cref="Video"/> from Youtube and caches it.
-    /// </summary>
-    /// <returns>The retrieved <see cref="Video"/>.</returns>
-    private async ValueTask<Video> GetVideo()
-    {
-        _video ??= await _client.Videos.GetAsync(Id);
+        string extension = streamInfo.Container.ToString();
 
-        return _video;
     }
 
     /// <summary>
