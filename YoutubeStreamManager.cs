@@ -13,6 +13,9 @@ internal sealed class YoutubeStreamManager
     private VideoId _id;
     private StreamManifest _streamManifest = null!;
 
+    //cache variables
+    private Video? _cacheVideo;
+
     private YoutubeStreamManager(YoutubeClient client, VideoId id)
     {
         _client = client;
@@ -35,6 +38,13 @@ internal sealed class YoutubeStreamManager
             .GetManifestAsync(manager._id);
 
         return manager;
+    }
+
+    public async ValueTask<Video> GetVideo()
+    {
+        _cacheVideo ??= await _client.Videos.GetAsync(_id);
+
+        return _cacheVideo;
     }
 
     /// <summary>
