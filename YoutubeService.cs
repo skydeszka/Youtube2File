@@ -13,6 +13,7 @@ public sealed class YoutubeDownloader
     [Flags]
     public enum DownloadType
     {
+        None = 0,
         Audio = 1,
         Video = 2,
         Caption = 4
